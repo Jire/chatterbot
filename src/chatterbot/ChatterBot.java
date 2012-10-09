@@ -1,5 +1,9 @@
 package chatterbot;
 
 public interface ChatterBot {
-	ChatterBotSession createSession();
+
+	ChatterBotThought think(ChatterBotThought thought) throws Exception;
+
+	String think(String text) throws Exception;
+
 }

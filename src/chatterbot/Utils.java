@@ -22,9 +22,10 @@ import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
 
-final class Utils {
+public final class Utils {
 
-	public static String parametersToWWWFormURLEncoded(Map<String, String> parameters) throws Exception {
+	public static String parametersToWWWFormURLEncoded(
+			Map<String, String> parameters) throws Exception {
 		StringBuilder s = new StringBuilder();
 		for (Map.Entry<String, String> parameter : parameters.entrySet()) {
 			if (s.length() > 0) {
@@ -44,15 +45,18 @@ final class Utils {
 		return String.format("%1$032X", hash);
 	}
 
-	public static String post(String url, Map<String, String> parameters) throws Exception {
+	public static String post(String url, Map<String, String> parameters)
+			throws Exception {
 		URLConnection connection = new URL(url).openConnection();
 		connection.setDoOutput(true);
 		connection.setDoInput(true);
-		OutputStreamWriter osw = new OutputStreamWriter(connection.getOutputStream());
+		OutputStreamWriter osw = new OutputStreamWriter(
+				connection.getOutputStream());
 		osw.write(parametersToWWWFormURLEncoded(parameters));
 		osw.flush();
 		osw.close();
-		Reader r = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+		Reader r = new BufferedReader(new InputStreamReader(
+				connection.getInputStream()));
 		StringWriter w = new StringWriter();
 		char[] buffer = new char[1024];
 		int n = 0;
@@ -63,16 +67,21 @@ final class Utils {
 		return w.toString();
 	}
 
-	public static String xPathSearch(String input, String expression) throws Exception {
-		DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+	public static String xPathSearch(String input, String expression)
+			throws Exception {
+		DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance()
+				.newDocumentBuilder();
 		XPath xPath = XPathFactory.newInstance().newXPath();
 		XPathExpression xPathExpression = xPath.compile(expression);
-		Document document = documentBuilder.parse(new ByteArrayInputStream(input.getBytes("UTF-8")));
-		return (String) xPathExpression.evaluate(document, XPathConstants.STRING);
+		Document document = documentBuilder.parse(new ByteArrayInputStream(
+				input.getBytes("UTF-8")));
+		return (String) xPathExpression.evaluate(document,
+				XPathConstants.STRING);
 	}
 
 	public static String stringAtIndex(String[] strings, int index) {
-		if (index >= strings.length) return "";
+		if (index >= strings.length)
+			return "";
 		return strings[index];
 	}
 

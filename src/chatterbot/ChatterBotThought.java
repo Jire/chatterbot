@@ -19,7 +19,8 @@ public final class ChatterBotThought {
 	}
 
 	public String[] getEmotions() {
-		if (emotions == null) return null;
+		if (emotions == null)
+			return null;
 		return emotions.clone();
 	}
 
